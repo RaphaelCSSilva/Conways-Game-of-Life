@@ -4,30 +4,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Life implements MouseListener, ActionListener, Runnable {
-    static final int rows = 50;
-    static final int cols = 50;
-    boolean[][] cells = new boolean[rows][cols];
+    private static final int rows = 100;
+    private static final int cols = 100;
+    private static int downtime = 500;
+    private boolean[][] cells = new boolean[rows][cols];
 
-    JFrame frame = new JFrame("Life");
-    LifePanel panel = new LifePanel(cells);
-    JButton start = new JButton("Start");
-    JButton pause = new JButton("Pause");
-    JButton step = new JButton("Step");
-    JButton reset = new JButton("Reset");
-    Container south = new Container();
-    boolean running = false;
+    private JFrame frame = new JFrame("Life");
+    private LifePanel panel = new LifePanel(cells);
+    private JButton start = new JButton("Start");
+    private JButton pause = new JButton("Pause");
+    private JButton step = new JButton("Step");
+    private JButton reset = new JButton("Reset");
+    private boolean running = false;
+    private JButton speed = new JButton("Speed");
 
     public Life() {
+        //Setting up the frame
         frame.setSize(500, 500);
         frame.setLayout(new BorderLayout());
         frame.add(panel, BorderLayout.CENTER);
         panel.addMouseListener(this);
 
         //South Container
+        Container south = new Container();
         south.setLayout(new GridLayout(1, 3));
         south.add(start);
         start.addActionListener(this);
@@ -39,17 +41,24 @@ public class Life implements MouseListener, ActionListener, Runnable {
         reset.addActionListener(this);
         frame.add(south, BorderLayout.SOUTH);
 
+        //Speed button
+        speed.addActionListener(this);
+
+        //Toolbar
+        JToolBar toolBar = new JToolBar();
+        frame.add(toolBar, BorderLayout.NORTH);
+        toolBar.add(speed);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
     }
 
-    static int[][] make2dgrid(int rows, int cols) {
-        int[][] arr = new int[rows][cols];
-        return arr;
+    private static int[][] make2dgrid() {
+        return new int[Life.rows][Life.cols];
     }
 
-    static void fillGrid(int[][] grid) {
+    private static void fillGrid(int[][] grid) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 grid[i][j] = ThreadLocalRandom.current().nextInt(0, 2);
@@ -58,7 +67,7 @@ public class Life implements MouseListener, ActionListener, Runnable {
 
     }
 
-    static int countNeighbors(boolean[][] grid, int row, int col) {
+    private static int countNeighbors(boolean[][] grid, int row, int col) {
         int total = 0;
         for (int i = row - 1; i <= row + 1; i++) {
             if (i >= 0 && i < grid.length)
@@ -69,20 +78,18 @@ public class Life implements MouseListener, ActionListener, Runnable {
         return total;
     }
 
-    static boolean isAlive(boolean[][] grid, int row, int col) {
+    private static boolean isAlive(boolean[][] grid, int row, int col) {
         return grid[row][col];
     }
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         new Life();
 
-        final int[][] grid = make2dgrid(rows, cols);
+        final int[][] grid = make2dgrid();
 
         fillGrid(grid);
-
-        int count = 0;
 
         /*do {
 
@@ -162,16 +169,19 @@ public class Life implements MouseListener, ActionListener, Runnable {
                 }
             }
             frame.repaint();
+        } else if (event.getSource().equals(speed)) {
+            downtime = Integer.parseInt(JOptionPane.showInputDialog(frame, "Insert the new desired downtime between generations.  (milliseconds)"));
+
         }
     }
 
-    public void step() {
-        boolean nextCells[][] = new boolean[cells.length][cells[0].length];
+    private void step() {
+        boolean[][] nextCells = new boolean[cells.length][cells[0].length];
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[0].length; j++) {
                 if (isAlive(cells, i, j) && countNeighbors(cells, i, j) < 2) {
                     nextCells[i][j] = false;
-                    /*continue*/;
+                    /*continue*/
                 }
 
                 if (isAlive(cells, i, j) && (countNeighbors(cells, i, j) == 2 || countNeighbors(cells, i, j) == 3)) {
@@ -204,7 +214,7 @@ public class Life implements MouseListener, ActionListener, Runnable {
         while (running) {
             step();
             try {
-                Thread.sleep(500);
+                Thread.sleep(downtime);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
