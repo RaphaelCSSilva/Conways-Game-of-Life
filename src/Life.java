@@ -56,6 +56,7 @@ public class Life implements MouseListener, ActionListener, Runnable {
 
     }
 
+    //TODO maybe adjust method so the random values no longer fill with 0 or 1 but with true or false
     private static void fillGrid(int[][] grid) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -65,6 +66,7 @@ public class Life implements MouseListener, ActionListener, Runnable {
 
     }
 
+    //Method for counting the neighbors of a cell.
     private static int countNeighbors(boolean[][] grid, int row, int col) {
         int total = 0;
         for (int i = row - 1; i <= row + 1; i++) {
@@ -76,6 +78,7 @@ public class Life implements MouseListener, ActionListener, Runnable {
         return total;
     }
 
+    //Checks if a cell is dead or alive (true or false, respectively)
     private static boolean isAlive(boolean[][] grid, int row, int col) {
         return grid[row][col];
     }
@@ -86,6 +89,7 @@ public class Life implements MouseListener, ActionListener, Runnable {
     }
 
 
+    //MouseEvent methods
     @Override
     public void mouseClicked(MouseEvent event) {
     }
@@ -96,14 +100,15 @@ public class Life implements MouseListener, ActionListener, Runnable {
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        System.out.println(event.getX() + "," + event.getY());
+        System.out.println(event.getX() + "," + event.getY());  //Kind of a log to see the coordinates (X, Y) of where the mouse is pressing within the grid.
         double width = (double)panel.getWidth() / cells[0].length;
         double height = (double)panel.getHeight() / cells.length;
 
         int column = Math.min(cells[0].length - 1, (int) (event.getX() / width));
         int row = Math.min(cells.length - 1, (int) (event.getY() / height));
-        System.out.println(column + "," + row);
+        System.out.println(column + "," + row); //Kind of a log to see the coordinates (row, column) of where the mouse is pressing within the grid.
 
+        //Changes the state of a cell to the opposite one and repaints the frame afterwards.
         cells[row][column] = !cells[row][column];
         frame.repaint();
 

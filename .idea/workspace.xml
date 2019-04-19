@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b4a1080-7fe2-4fe5-9e51-424d26962cd2" name="Default Changelist" comment="Add toolbar and speed adjustment button to it.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Conway's Game of Life/Life.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Conway's Game of Life/Life.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Life.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Life.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Life.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="146" column="27" lean-forward="true" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="27" />
+            <state relative-caret-position="469">
+              <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2806#2807#0" expanded="true" />
@@ -95,7 +93,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555636448254" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555636450019" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -152,7 +150,7 @@
       <workItem from="1555543732927" duration="18604000" />
       <workItem from="1555591921999" duration="13679000" />
       <workItem from="1555617987036" duration="5548000" />
-      <workItem from="1555630184455" duration="1938000" />
+      <workItem from="1555630184455" duration="3059000" />
     </task>
     <task id="LOCAL-00001" summary="Add toolbar and speed adjustment button to it.">
       <created>1555629550959</created>
@@ -165,7 +163,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39769000" />
+    <option name="totallyTimeSpent" value="40890000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -228,8 +226,8 @@
     <entry file="file://$PROJECT_DIR$/src/Teste.java" />
     <entry file="file://$PROJECT_DIR$/src/Life.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="146" column="27" lean-forward="true" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="27" />
+        <state relative-caret-position="469">
+          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2806#2807#0" expanded="true" />
