@@ -11,6 +11,8 @@ public class Life implements MouseListener, ActionListener, Runnable {
     private static final int cols = 100;
     private static int downtime = 500;
     private boolean[][] cells = new boolean[rows][cols];
+    private static int birthCount;
+    private static int deathCount;
 
     private JFrame frame = new JFrame("Life");
     private LifePanel panel = new LifePanel(cells);
@@ -54,10 +56,6 @@ public class Life implements MouseListener, ActionListener, Runnable {
 
     }
 
-    private static int[][] make2dgrid() {
-        return new int[Life.rows][Life.cols];
-    }
-
     private static void fillGrid(int[][] grid) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -84,35 +82,7 @@ public class Life implements MouseListener, ActionListener, Runnable {
 
 
     public static void main(String[] args) {
-
         new Life();
-
-        final int[][] grid = make2dgrid();
-
-        fillGrid(grid);
-
-        /*do {
-
-            System.out.println(Arrays.deepToString(grid).replace("], ", "]\n"));
-
-            for (int i = 0; i < grid.length; i++) {
-                for (int j = 0; j < grid[i].length; j++) {
-                    if (isAlive(grid, i, j) && countNeighbors(grid, i, j) < 2) {
-                        grid[i][j] = 0;
-                    } else if (isAlive(grid, i, j) && countNeighbors(grid, i, j) > 3) {
-                        grid[i][j] = 0;
-                    } else if (!isAlive(grid, i, j) && countNeighbors(grid, i, j) == 3) {
-                        grid[i][j] = 1;
-                    }
-                }
-            }
-
-            Thread.sleep(1000);
-
-            count++;
-
-        } while (count < 10);*/
-
     }
 
 
@@ -161,6 +131,9 @@ public class Life implements MouseListener, ActionListener, Runnable {
         } else if (event.getSource().equals(pause)) {
             System.out.println("Pause");
             running = false;
+            String message = "There have been " + deathCount + " deaths and " + birthCount + " births so far";
+            JOptionPane.showMessageDialog(null, message,  "Deaths and births information", JOptionPane.INFORMATION_MESSAGE);
+
         } else if (event.getSource().equals(reset)) {
             running = false;
             for (int i = 0; i < cells.length; i++) {
@@ -168,6 +141,10 @@ public class Life implements MouseListener, ActionListener, Runnable {
                     cells[i][j] = false;
                 }
             }
+            String message = "There have been " + deathCount + " deaths and " + birthCount + " births so far";
+            JOptionPane.showMessageDialog(null, message,  "Deaths and births information", JOptionPane.INFORMATION_MESSAGE);
+            deathCount = 0;
+            birthCount = 0;
             frame.repaint();
         } else if (event.getSource().equals(speed)) {
             downtime = Integer.parseInt(JOptionPane.showInputDialog(frame, "Insert the new desired downtime between generations.  (milliseconds)"));
@@ -181,25 +158,22 @@ public class Life implements MouseListener, ActionListener, Runnable {
             for (int j = 0; j < cells[0].length; j++) {
                 if (isAlive(cells, i, j) && countNeighbors(cells, i, j) < 2) {
                     nextCells[i][j] = false;
-                    /*continue*/
+                    deathCount++;
                 }
 
                 if (isAlive(cells, i, j) && (countNeighbors(cells, i, j) == 2 || countNeighbors(cells, i, j) == 3)) {
                     nextCells[i][j] = true;
-                    /*continue;*/
                 }
 
                 if (isAlive(cells, i, j) && countNeighbors(cells, i, j) > 3) {
                     nextCells[i][j] = false;
-                    /*continue;*/
+                    deathCount++;
                 }
 
                 if (!isAlive(cells, i, j) && countNeighbors(cells, i, j) == 3) {
                     nextCells[i][j] = true;
-                    /*continue;*/
+                    birthCount++;
                 }
-                /*cells[i][j] = nextCells[i][j];
-                frame.repaint();*/
             }
         }
 
